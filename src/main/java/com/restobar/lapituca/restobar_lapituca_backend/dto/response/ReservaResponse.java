@@ -1,0 +1,28 @@
+package com.restobar.lapituca.restobar_lapituca_backend.dto.response;
+
+import lombok.*;
+
+import java.time.*;
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReservaResponse {
+
+    private Long id;
+    private LocalDate fechaReserva;
+    private LocalTime horaReserva;
+    private Integer numPersonas;
+    private String estado;
+
+    private Long usuarioId;
+    private Long grupoId;
+    private List<Long> mesasIds;
+    private Long ultimaTransaccionId;
+    private List<Long> transaccionesIds;
+
+    private LocalDateTime fechaRegistro;
+    private LocalDateTime fechaVerificacionReserva;
+    private Long usuarioVerificadorId;
+}
