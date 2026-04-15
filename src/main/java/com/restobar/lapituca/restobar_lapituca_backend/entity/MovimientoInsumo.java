@@ -1,0 +1,53 @@
+package com.restobar.lapituca.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "MovimientoInsumo")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class MovimientoInsumo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Positive
+    @Digits(integer = 10, fraction = 6)
+    @Column(nullable = false, precision = 16, scale = 6)
+    private BigDecimal cantidad;
+
+    @Size(min = 1, max = 25)
+    @Column(nullable = false)
+    private String unidad_medida;
+
+    @CreationTimestamp()
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime fechaHora_registro;
+
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDateTime fechaHora_actualizacion;
+
+    //Relaciones
+    //MovimientoInsumo-Insumo
+    @ManyToOne
+    @JoinColumn(name = "id_insumo")
+    private Insumo insumo;
+
+    //MovimientoInsumo-Comprobante
+    @ManyToOne
+    @JoinColumn(name = "id_comprobante")
+    private Comprobante comprobante;
+}
