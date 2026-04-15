@@ -15,6 +15,7 @@ public class Boleta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
     @OneToOne
     @JoinColumn(name = "id_comprobante")
     private Comprobante comprobante;
