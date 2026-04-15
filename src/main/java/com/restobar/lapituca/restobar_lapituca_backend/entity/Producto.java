@@ -1,0 +1,58 @@
+package com.restobar.lapituca.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "Producto")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Producto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 50)
+    private String nombre;
+
+    @Column(nullable = false)
+    @Digits(integer = 5, fraction = 2)
+    private BigDecimal precio;
+
+    @Column(nullable = false)
+    private Integer stock;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDate fecha_inscripcion;
+
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDate fecha_modificacion;
+
+    //Relaciones:
+
+    //Producto-Categoria
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", nullable = true)
+    private Categoria categoria;
+
+    //Producto-Marca
+    @ManyToOne
+    @JoinColumn(name = "id_marca", nullable = true)
+    private Marca marca;
+
+    /*
+    //Producto-Pedido
+    @OneToMany(mappedBy = "producto") //Si no necesitas navegar desde producto → pedidos, puedes quitarlo.
+    private List<Pedido> pedido;*/
+}
